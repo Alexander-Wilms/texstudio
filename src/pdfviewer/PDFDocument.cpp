@@ -327,6 +327,7 @@ void PDFMagnifier::setImage(const QPixmap &img, int pageNr)
 void PDFMagnifier::paintEvent(QPaintEvent *event)
 {
 	QPainter painter(this);
+	painter.setRenderHint(QPainter::Antialiasing);
 	drawFrame(&painter);
 	QRect tmpRect(event->rect().x()*overScale, event->rect().y()*overScale, event->rect().width()*overScale, event->rect().height()*overScale);
 	int side = qMin(width(), height()) ;
@@ -360,7 +361,6 @@ void PDFMagnifier::paintEvent(QPaintEvent *event)
 		if(page == parent->highlightPage){
 		    if (!parent->highlightPath.isEmpty()) {
 			    painter.save();
-			    painter.setRenderHint(QPainter::Antialiasing);
 			    painter.translate(-kMagFactor  * pos()- mouseTranslate -imageLoc );
 			    painter.scale(imageDpi/72.0, imageDpi/72.0);
 			    painter.setPen(QColor(0, 0, 0, 0));
